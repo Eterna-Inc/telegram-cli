@@ -20,10 +20,15 @@ show_help() {
 
 ensure_root() {
   if [ "$EUID" -ne 0 ]; then
+    if [ -w "/usr/local/bin" ]; then
+      echo "✅ Sudo not required (you already have write access to /usr/local/bin)"
+      return
+    fi
     echo "⚙️  Root privileges are required. Restarting with sudo..."
-    exec sudo bash "$0" "$@"
+    exec sudo /usr/bin/env bash "$0" "$@"
   fi
 }
+
 
 detect_platform() {
   ARCH=$(uname -m)
