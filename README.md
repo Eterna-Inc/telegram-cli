@@ -24,7 +24,8 @@
 
 ### 🪟 Windows (Günclleme)
 ```powershell
-iwr -useb https://raw.githubusercontent.com/Eterna-Inc/telegram-cli/main/install.ps1 | iex -ArgumentList '-Action update'
+Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/Eterna-Inc/telegram-cli/main/install.ps1' -OutFile $env:TEMP\telegram-install.ps1
+Start-Process powershell -Verb runAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$env:TEMP\telegram-install.ps1`" -Action update"
 ```
 
 
