@@ -1,4 +1,4 @@
- # telegram-cli
+ # Telegram CLI
 
  Telegram dan mesaj göndermek için Çapraz platform minimal CLI uygulaması.
 
@@ -17,22 +17,25 @@
 
  Uzaktan tek satır ile (GitHub raw üzerinden çalıştırmak):
 
-### Windows (Kurulum)
+### 🪟 Windows (Kurulum)
  ```powershell
  iwr -useb https://raw.githubusercontent.com/Eterna-Inc/telegram-cli/main/install.ps1 | iex
  ```
 
- Güvenli test (sistem dizinleri/Path değiştirme riskini azaltmak için):
+### 🪟 Windows (Günclleme)
+```powershell
+iwr -useb https://raw.githubusercontent.com/Eterna-Inc/telegram-cli/main/install.ps1 | iex -ArgumentList '-Action update'
+```
 
 
 
- ### Linux (Kurulum)
+ ### 🐧 Linux (Kurulum)
 
  ```bash
  curl -fsSL https://raw.githubusercontent.com/Eterna-Inc/telegram-cli/main/install.sh | bash
  ```
 
- ### Linux (Güncelleme)
+ ### 🐧 Linux (Güncelleme)
 
  ```bash
  curl -fsSL https://raw.githubusercontent.com/Eterna-Inc/telegram-cli/main/install.sh | bash -s update
@@ -40,7 +43,7 @@
 
  ---
 
- ### macOS
+ ### 🍎 macOS
 
  macOS için Linux ile aynı bash tabanlı kurulum çalışır (curl | bash). Örnek:
 
