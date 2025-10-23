@@ -1,0 +1,65 @@
+# 🧱 Go Build Artifacts
+/bin/
+/build/
+/dist/
+/out/
+/tmp/
+/.cache/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+*.log
+
+# 🧰 Compiled Binaries (local builds)
+telegram.exe
+
+# 🧩 Go Vendor / Modules
+vendor/
+*.mod~
+*.sum~
+go.sum.lock
+
+# 🔧 IDE / Editor Configs
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+
+# 🧪 Test outputs
+coverage.*
+*.coverprofile
+*.prof
+*.trace
+*.bench
+
+# 🧬 OS-specific files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 🧠 User Configs (do not track local configs)
+~/.telegram_config
+.telegram_config
+.telegram_config.enc
+
+# ⚙️ GitHub Actions / CI cache
+.github/workflows/*.bak
+*.bak
+*.old
+
+# 🪄 Installer artifacts
+install.sh.bak
+install.sh.tmp
+
+# 🧾 Generated assets
+*.tar
+*.tar.gz
+*.zip
+*.gz
+*.bz2
+*.7z
