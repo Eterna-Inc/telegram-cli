@@ -62,6 +62,13 @@ macOS için de aynı bash tabanlı kurulum geçerlidir:
 curl -fsSL https://raw.githubusercontent.com/Eterna-Inc/telegram-cli/main/install.sh | bash
 ```
 
+Eğer macOS’ta otomatik kurulum çalışmazsa, script dosyasını indirip terminalden manuel olarak çalıştırabilirsiniz.
+
+```bash
+curl -O https://raw.githubusercontent.com/Eterna-Inc/telegram-cli/main/install.sh
+bash install.sh
+```
+
 ***
 
 ## 🧩 İlk Kurulum Sonrası
@@ -151,6 +158,13 @@ iwr -useb https://raw.githubusercontent.com/Eterna-Inc/telegram-cli/main/install
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/Eterna-Inc/telegram-cli/main/install.sh | bash
+```
+
+If the automatic installation doesn’t work on macOS, download the script and run it manually from the terminal.
+
+```bash
+curl -O https://raw.githubusercontent.com/Eterna-Inc/telegram-cli/main/install.sh
+bash install.sh
 ```
 
 ***
