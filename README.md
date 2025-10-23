@@ -79,7 +79,7 @@ telegram config --token 123456:ABCDEF --chatid 987654321 --profile default
 | Amaç | Komut |
 | --- | --- |
 | Basit mesaj gönder | telegram "Deploy tamam ✅" |
-| Kod bloğu olarak gönder | telegram --code "npm run build && pm2 restart all" |
+| Kod bloğu olarak gönder | telegram --code "bash" "npm run build && pm2 restart all" |
 | Markdown mesajı | telegram --format markdown "*Deploy* **OK** ✅" |
 | HTML mesajı | telegram --format html "<b>Deploy</b> <i>OK</i> ✅" |
 | Komut çıktısı gönder | telegram --exec "df -h" |
