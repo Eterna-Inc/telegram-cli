@@ -20,6 +20,7 @@ show_help() {
 
 ensure_root() {
   if [ "$EUID" -ne 0 ]; then
+    # macOS genellikle /usr/local/bin dizinine yazabilir, sudo gerekmez
     if [ -w "/usr/local/bin" ]; then
       echo "✅ Sudo not required (you already have write access to /usr/local/bin)"
       return
@@ -29,7 +30,6 @@ ensure_root() {
   fi
 }
 
-
 detect_platform() {
   ARCH=$(uname -m)
   OS=$(uname -s | tr '[:upper:]' '[:lower:]')
@@ -38,6 +38,15 @@ detect_platform() {
     aarch64) ARCH="arm64" ;;
     armv7l) ARCH="arm" ;;
   esac
+}
+
+set_owner() {
+  # Config dosyasını gerçek kullanıcıya ait hale getir
+  USER_NAME=$(logname 2>/dev/null || echo "$SUDO_USER")
+  GROUP_NAME=$(id -gn "$USER_NAME" 2>/dev/null || echo "staff")
+  if [ -n "$USER_NAME" ]; then
+    chown "$USER_NAME:$GROUP_NAME" "$1" 2>/dev/null || true
+  fi
 }
 
 install_app() {
@@ -56,14 +65,14 @@ install_app() {
     tmp=$(mktemp -d)
     cd "$tmp"
     git clone --depth=1 "https://github.com/$REPO" .
-    go build -o "$INSTALL_PATH"
+    CGO_ENABLED=0 go build -ldflags="-s -w" -o "$INSTALL_PATH"
   else
     echo "⬇️  Downloading latest binary..."
     curl -L "$LATEST_URL" -o "$INSTALL_PATH"
     chmod +x "$INSTALL_PATH"
   fi
 
-  # Create config if it doesn’t exist
+  # Create config file if it doesn’t exist
   if [ ! -f "$CONFIG_PATH" ]; then
     echo "🧩 Creating configuration file..."
     cat > "$CONFIG_PATH" <<EOF
@@ -79,16 +88,18 @@ install_app() {
   "encrypted": false
 }
 EOF
-    chown $(logname):$(logname) "$CONFIG_PATH"
+    set_owner "$CONFIG_PATH"
     chmod 600 "$CONFIG_PATH"
   fi
 
+  echo
   echo "✅ ${APP_NAME} installed successfully at: $INSTALL_PATH"
   echo "ℹ️  Configure your Telegram credentials:"
   echo "   telegram config --token <TOKEN> --chatid <CHAT_ID>"
   echo
   echo "ℹ️  Test it:"
   echo "   telegram \"Installation complete ✅\""
+  echo
 }
 
 update_app() {
@@ -103,8 +114,8 @@ update_app() {
 uninstall_app() {
   ensure_root
   echo "🧹 Uninstalling ${APP_NAME}..."
-  rm -f "$INSTALL_PATH"
-  rm -f "$CONFIG_PATH"
+  rm -f "$INSTALL_PATH" 2>/dev/null || true
+  rm -f "$CONFIG_PATH" 2>/dev/null || true
   echo "✅ ${APP_NAME} has been completely removed."
 }
 
